@@ -171,8 +171,11 @@
     <div class="proof">
       <div class="label">Proof of work</div>
       <a href="https://github.com/leesgit" target="_blank" rel="noopener"><span class="dot"></span>github.com/leesgit</a>
-      <a href="https://www.npmjs.com/package/claude-session-continuity-mcp" target="_blank" rel="noopener"><span class="dot"></span>npm · session-continuity-mcp <span class="sub">awesome-mcp</span></a>
+      <a href="https://www.npmjs.com/package/claude-session-continuity-mcp" target="_blank" rel="noopener"><span class="dot"></span>npm · session-continuity-mcp <span class="sub">awesome-mcp · 1.8k/mo</span></a>
+      <a href="https://www.npmjs.com/package/mac-pilot-mcp" target="_blank" rel="noopener"><span class="dot"></span>npm · mac-pilot-mcp</a>
       <a href="https://play.google.com/store/apps/details?id=com.lbc.sajumung" target="_blank" rel="noopener"><span class="dot"></span>Google Play · Sajumung</a>
+      <a href="https://play.google.com/store/apps/details?id=com.lbc.lunaday" target="_blank" rel="noopener"><span class="dot"></span>Google Play · Lunaday</a>
+      <a href="https://www.youtube.com/watch?v=CG9_B3N-vak" target="_blank" rel="noopener"><span class="dot"></span>AI video pipeline <span class="sub">sample output</span></a>
       <a href="https://github.com/coil-kt/coil/pull/3401" target="_blank" rel="noopener"><span class="dot"></span>OSS contrib · coil #3401</a>
     </div>
   </aside>
@@ -229,6 +232,49 @@
 
     <section>
       <div class="ghost-n" aria-hidden="true">02</div>
+      <div class="sec-head"><h2>How I build with LLMs</h2></div>
+      <p class="thesis" style="margin-top:0">
+        Most of my AI work is at the <b>application layer</b> — turning models into features people actually use.
+        Not model training or on-device inference optimization. Concretely:
+      </p>
+      <div class="grid2">
+        <div class="card">
+          <h3>Structured RAG, not naive RAG</h3>
+          <p>Retrieval over a domain corpus where naive top-k chunking loses meaning. I merge multiple sources into one structured context block before the call — which cuts token spend and, more importantly, stops the model from contradicting itself across retrieved fragments. Retrieval is scoped by the question type, not one index for everything.</p>
+          <span class="badge">retrieval · context assembly</span>
+        </div>
+        <div class="card">
+          <h3>Context engineering</h3>
+          <p>Treating the context window as a budget to allocate, not a bucket to fill: what gets included, in what order, at what fidelity, and what gets summarized or dropped when the window tightens. This is where most of the quality lives — more than prompt wording.</p>
+          <span class="badge">token budget · ordering</span>
+        </div>
+        <div class="card">
+          <h3>Evaluation (LLM-as-Judge)</h3>
+          <p>Shipping an LLM feature without evals is guessing. I built a judge-based harness that scores generations against a rubric so a prompt or model change can be measured rather than eyeballed — and regressions get caught before users see them.</p>
+          <span class="badge">rubric · regression gate</span>
+        </div>
+        <div class="card">
+          <h3>Safety in a consumer product</h3>
+          <p>A counseling-style app takes real emotional input, so the pipeline detects crisis signals and routes them away from generative answers. Guardrails were part of the architecture, not a filter bolted on at the end.</p>
+          <span class="badge">crisis detection · routing</span>
+        </div>
+        <div class="card">
+          <h3>MCP &amp; agent tooling</h3>
+          <p>Two published MCP servers. The hard part isn't the protocol — it's designing tool descriptions and return shapes so a model reaches for the right tool unprompted. API design for a non-human reader.
+            <a href="https://www.npmjs.com/package/claude-session-continuity-mcp" target="_blank" rel="noopener">session-continuity-mcp</a> ·
+            <a href="https://www.npmjs.com/package/mac-pilot-mcp" target="_blank" rel="noopener">mac-pilot-mcp</a></p>
+          <span class="badge">mcp · awesome-mcp-servers</span>
+        </div>
+        <div class="card">
+          <h3>Reuse across domains</h3>
+          <p>The same engine now powers two very different products — <a href="https://play.google.com/store/apps/details?id=com.lbc.sajumung" target="_blank" rel="noopener">Sajumung</a> and <a href="https://play.google.com/store/apps/details?id=com.lbc.lunaday" target="_blank" rel="noopener">Lunaday</a> — because the architecture was abstracted rather than rebuilt. Same reason the video pipeline runs unattended.</p>
+          <span class="badge">2 domains · 1 engine</span>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="ghost-n" aria-hidden="true">03</div>
       <div class="sec-head"><h2>Experience</h2></div>
 
       <div class="job">
@@ -296,7 +342,7 @@
     </section>
 
     <section>
-      <div class="ghost-n" aria-hidden="true">03</div>
+      <div class="ghost-n" aria-hidden="true">04</div>
       <div class="sec-head"><h2>Skills</h2></div>
       <div class="skills">
         <div class="skillrow"><div class="k">Mobile</div><div class="chips">
@@ -315,7 +361,7 @@
     </section>
 
     <section>
-      <div class="ghost-n" aria-hidden="true">04</div>
+      <div class="ghost-n" aria-hidden="true">05</div>
       <div class="sec-head"><h2>Certifications</h2></div>
       <ul class="dash-list">
         <li><b>Anthropic Academy</b> — MCP: Advanced Topics · Subagents · Claude API · Claude Code in Action (2026)</li>
