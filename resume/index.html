@@ -183,29 +183,31 @@
       <a href="https://www.npmjs.com/package/mac-pilot-mcp" target="_blank" rel="noopener"><span class="dot"></span>npm · mac-pilot-mcp</a>
       <a href="https://play.google.com/store/apps/details?id=com.lbc.sajumung" target="_blank" rel="noopener"><span class="dot"></span>Google Play · Sajumung</a>
       <a href="https://play.google.com/store/apps/details?id=com.lbc.lunaday" target="_blank" rel="noopener"><span class="dot"></span>Google Play · Lunaday</a>
-      <a href="https://www.youtube.com/watch?v=CG9_B3N-vak" target="_blank" rel="noopener"><span class="dot"></span>AI video pipeline <span class="sub">sample output</span></a>
+      <a href="https://benefits.chmonst.com" target="_blank" rel="noopener"><span class="dot"></span>Korea Benefits Finder <span class="sub">9,654 records</span></a>
+      <a href="https://www.youtube.com/watch?v=CG9_B3N-vak" target="_blank" rel="noopener"><span class="dot"></span>AI video pipeline <span class="sub">side project</span></a>
       <a href="https://github.com/coil-kt/coil/pull/3401" target="_blank" rel="noopener"><span class="dot"></span>OSS contrib · coil #3401</a>
     </div>
   </aside>
 
   <main>
     <div class="anchor">Senior Mobile Engineer <span class="arrow">→</span> AI Product Engineer</div>
-    <div class="anchor-sub">7 yrs · ex-team-lead (Tempus) · Kotlin · Swift · Flutter · RAG · MCP</div>
+    <div class="anchor-sub">7 yrs · Android-primary · production iOS · Flutter · RAG · MCP · ex-team-lead (Tempus)</div>
 
     <p class="thesis">
-      Over the past year I designed a <b>context-engineering + structured-RAG engine</b> and took it to production —
+      In the last six months I designed a <b>context-engineering + structured-RAG engine</b> and took it to production —
       <span class="hl">2 apps on Google Play</span>, <span class="hl">2 npm MCP packages</span>
-      (one listed in awesome-mcp-servers), <span class="hl">4 web services</span>, and an
-      <span class="hl">automated video pipeline</span>, all solo. Not prototypes: shipped, deployed, and operated,
-      with an <b>LLM-as-Judge quality gate</b> guarding every prompt change. Before that,
-      <b>6 years of native mobile</b> in Kotlin and Swift.
+      (one listed in awesome-mcp-servers), <span class="hl">4 live web services</span>, all solo.
+      Not prototypes: shipped, deployed, and operated — including <b>responding to a real CVSS 10.0 breach</b>
+      on my own production servers — with an <b>LLM-as-Judge quality gate</b> guarding every prompt change. Before that,
+      <b>6 years of native mobile</b>: Android-primary in Kotlin/Compose, with production iOS features shipped in Swift.
     </p>
 
     <div class="stat-row">
       <div class="stat"><div class="n">7</div><div class="t">years engineering</div></div>
       <div class="stat"><div class="n">2</div><div class="t">apps on Google Play</div></div>
       <div class="stat"><div class="n">2</div><div class="t">npm MCP packages</div></div>
-      <div class="stat"><div class="n">4</div><div class="t">web services shipped</div></div>
+      <div class="stat"><div class="n">4</div><div class="t">live web services</div></div>
+      <div class="stat"><div class="n">10.0</div><div class="t">CVSS breach handled solo</div></div>
     </div>
 
     <section>
@@ -213,29 +215,48 @@
       <div class="sec-head"><h2>What I build</h2></div>
       <div class="grid2">
         <div class="card">
-          <h3>Automated video pipelines</h3>
-          <p>An end-to-end pipeline I wrote and run unattended: LLM script &amp; shot list → keyframe image generation → image-to-video → TTS dubbing → ffmpeg assembly with caption rendering and a consistency-metrics pass that scores shots and rejects bad takes. Cost-modelled, since generation is metered. Output ships to two live YouTube channels — <a href="https://www.youtube.com/watch?v=CG9_B3N-vak" target="_blank" rel="noopener">sample</a>.</p>
-          <span class="badge">python · ffmpeg · unattended</span>
+          <h3>Shipped AI products</h3>
+          <p>Two live Google Play apps built and operated solo on one abstracted engine —
+            <a href="https://play.google.com/store/apps/details?id=com.lbc.sajumung" target="_blank" rel="noopener">Sajumung</a> (AI counseling) and
+            <a href="https://play.google.com/store/apps/details?id=com.lbc.lunaday" target="_blank" rel="noopener">Lunaday</a> (women's health).
+            Flutter client, Node/Mongo server, Docker on AWS EC2. Store listing to on-call, all mine.</p>
+          <span class="badge">flutter · node · ec2 · live</span>
         </div>
         <div class="card">
           <h3>AI / LLM systems</h3>
-          <p>RAG pipelines, context engineering, LLM-as-Judge evaluation, MCP servers &amp; agent tooling. OpenAI &amp; AWS Bedrock / Nova.</p>
+          <p>Structured RAG, context engineering, LLM-as-Judge evaluation with real statistics, MCP servers &amp; agent tooling. OpenAI &amp; AWS Bedrock / Nova. Application layer — not model training.</p>
           <span class="badge">bedrock · nova · shipped</span>
         </div>
+        <div class="card" style="grid-column: 1 / -1">
+          <h3>Incident response — CVSS 10.0 on my own production servers</h3>
+          <p>In May 2026 AWS flagged abuse on my EC2 host. Root cause: <b>CVE-2025-66478 (React2Shell, CVSS 10.0)</b> in Next.js —
+            <b>3 of 9 production containers</b> were compromised, with a <b>~5-month dwell time</b> (2025-12 → 2026-05).
+            I ran a <b>16-task response</b>: patched Next.js, deny-by-default middleware, every container rebuilt <b>non-root</b>,
+            all secrets rotated, and <b>1.2 GB of forensic evidence</b> preserved (docker-save of the compromised containers) before teardown.
+            The AWS Trust &amp; Safety case was closed 2026-05-16.</p>
+          <p style="margin-top:8px">The part I actually learned from: <b>the fix regressed.</b> The hotfix lived on the server and was never committed to git,
+            so a June rebuild rolled the image back to the unpatched version and the host was re-infected. I back-synced server → git and closed the loop.
+            <i>Infra fixes that only exist on the box are not fixes.</i></p>
+          <span class="badge">cve-2025-66478 · forensics · non-root · postmortem</span>
+        </div>
         <div class="card">
-          <h3>Native &amp; cross-platform mobile</h3>
-          <p>Kotlin / Jetpack Compose, Swift / SwiftUI / Combine, Flutter / Riverpod. 7 yrs on production apps with real users.</p>
-          <span class="badge">kotlin · swift · flutter</span>
+          <h3>Mobile — Android-primary, production iOS</h3>
+          <p>Kotlin / Jetpack Compose as my primary stack, plus Flutter / Riverpod. I've also <b>shipped production iOS features in SwiftUI/Combine on two live App Store apps</b> (Futuredigm, Petnow) — real iOS work, not a side claim of parity. 7 yrs on apps with real users.</p>
+          <span class="badge">kotlin · compose · swiftui · flutter</span>
         </div>
         <div class="card">
           <h3>Full-stack + deploy</h3>
-          <p>Node.js / Next.js, MongoDB / Prisma, Docker, AWS EC2, Nginx. From first commit to a running URL.</p>
-          <span class="badge">ec2 · nginx · live</span>
+          <p>Four web services I built and run on Docker/EC2/Nginx (Next.js, TypeScript, Prisma/Mongo):
+            <a href="https://benefits.chmonst.com" target="_blank" rel="noopener">Korea Benefits Finder</a> — <b>9,654</b> government benefits ingested from public open data and kept in sync;
+            <a href="https://date.chmonst.com" target="_blank" rel="noopener">Seoul Date Course</a>;
+            <a href="https://salary.chmonst.com" target="_blank" rel="noopener">Salary Calculator</a>;
+            <a href="https://bgremover.chmonst.com" target="_blank" rel="noopener">AI Background Remover</a>. From first commit to a running URL.</p>
+          <span class="badge">next.js · docker · ec2 · nginx</span>
         </div>
         <div class="card">
-          <h3>Ops &amp; security</h3>
-          <p>Responded to a live server breach (Next.js CVE) across multi-container EC2; built cron+Slack threat monitoring.</p>
-          <span class="badge">next.js cve · resolved</span>
+          <h3>Automated video pipeline <span style="font-size:12px;color:var(--ink-mute)">· side project</span></h3>
+          <p>A pipeline I wrote and run unattended: LLM script &amp; shot list → keyframe image generation → image-to-video → TTS dubbing → ffmpeg assembly with caption rendering. Output ships to two live YouTube channels — <a href="https://www.youtube.com/watch?v=CG9_B3N-vak" target="_blank" rel="noopener">sample</a>.</p>
+          <span class="badge">python · ffmpeg · unattended</span>
         </div>
       </div>
     </section>
@@ -248,53 +269,45 @@
         Not model training or on-device inference optimization. Concretely:
       </p>
       <div class="grid2">
-        <div class="card">
-          <h3>I chose <i>not</i> to use a vector DB — and that was the right call</h3>
-          <p>The default reflex is "RAG = embeddings + vector store." My domain data had a well-defined schema, so key-based lookup in MongoDB was <b>more accurate, faster, and cheaper</b> than embedding search — semantic similarity would have retrieved plausible-but-wrong records. So it's <b>DB-backed structured RAG</b>: multiple context sources (user profile, life context, emotional trend, prior sessions, cross-references) composed into one prompt per request, not top-k chunks glued together.</p>
-          <span class="badge">mongodb · structured rag</span>
-        </div>
-        <div class="card">
-          <h3>Context window as a budget</h3>
-          <p>Six consultation types, each pulling only the context that type actually needs — cutting API cost without cutting quality. Response params are <b>adapted per question</b>: complexity is classified (simple / moderate / deep) and <code>max_tokens</code> (350–800) and <code>temperature</code> (0.7–0.85) are set accordingly, instead of one fixed config for every call.</p>
-          <span class="badge">token budget · dynamic params</span>
-        </div>
-        <div class="card">
+        <div class="card" style="grid-column: 1 / -1">
           <h3>Evaluation with actual statistics</h3>
-          <p>I built a 6-dimension LLM-as-Judge harness as a <b>quality gate</b> on prompt and model changes:</p>
+          <p>I built a 6-dimension LLM-as-Judge harness as a <b>quality gate</b> on prompt and model changes — no prompt ships without passing it:</p>
           <ul class="dash-list" style="margin-top:8px">
             <li><b>Self-bias avoided</b> — GPT-4o judges, GPT-4o-mini generates (never the same model grading itself)</li>
-            <li><b>Judge reliability measured</b> — Cohen's quadratic weighted kappa, so I know the judge is trustworthy</li>
+            <li><b>Judge reliability measured</b> — Cohen's quadratic weighted kappa, so I know the judge is trustworthy before I trust its verdict</li>
             <li><b>Regressions caught statistically</b> — Welch's t-test with Bonferroni correction, not eyeballing a few samples</li>
             <li>CoT + score calibration + few-shot; judge prompts versioned and hashed</li>
           </ul>
           <span class="badge">llm-as-judge · qwk · t-test</span>
         </div>
         <div class="card">
-          <h3>Safety designed in, not bolted on</h3>
-          <p>A counseling app receives real distress. Crisis detection runs in real time and grades into <b>two levels</b> — watch vs. urgent — with urgent cases routed out of the generative path and into real crisis hotlines. On the analytics side, a <b>5-stage filter</b> means only positive, anonymized sessions ever feed service-level learning; negative or personal data is structurally blocked from touching another user.</p>
+          <h3>I chose <i>not</i> to use a vector DB — and that was the right call</h3>
+          <p>The default reflex is "RAG = embeddings + vector store." My domain data had a well-defined schema, so key-based lookup in MongoDB was <b>more accurate, faster, and cheaper</b> than embedding search — semantic similarity would have retrieved plausible-but-wrong records. So it's <b>DB-backed structured RAG</b>: multiple context sources (user profile, life context, emotional trend, prior sessions, cross-references) composed into one prompt per request, not top-k chunks glued together.</p>
+          <span class="badge">mongodb · structured rag</span>
+        </div>
+        <div class="card">
+          <h3>Safety: the LLM is never the last line of defense</h3>
+          <p>A counseling app receives real distress. Crisis detection is a <b>deterministic keyword tier — regex, not a model</b>, and that's the design choice, not a shortcut: a probabilistic model must never be what stands between a self-harm signal and a response. It grades into <b>two tiers</b> (Level 1 watch / Level 2 urgent); urgent cases are routed <b>out of the generative path</b> to Korea's national hotlines (<code>1393</code> / <code>1577-0199</code>). On analytics, a <b>5-stage filter</b> means only positive, anonymized sessions feed service-level learning — personal data is structurally blocked from reaching another user.</p>
           <span class="badge">2-tier crisis routing · privacy</span>
         </div>
         <div class="card">
-          <h3>A system that learns from each session</h3>
-          <p>Facts are extracted from conversation and written back to the user's context immediately. Life changes are stored as <b>history rather than overwrites</b>, so "what recently changed" is answerable. Emotion scores are tracked over time to classify a trend as improving / stable / declining, and what a user revealed in one consultation type is available to the others.</p>
-          <span class="badge">stateful · cross-reference</span>
+          <h3>Context window as a budget</h3>
+          <p>Six consultation types, each pulling only the context that type actually needs — cutting API cost without cutting quality. Response params are <b>adapted per question</b>: complexity is classified (simple / moderate / deep) and <code>max_tokens</code> (350–800) and <code>temperature</code> (0.7–0.85) are set accordingly, instead of one fixed config for every call. Facts are extracted from each conversation (also regex, at the boundary) and written back to the user's context immediately — life changes stored as <b>history rather than overwrites</b>, so "what recently changed" stays answerable.</p>
+          <span class="badge">token budget · stateful</span>
         </div>
         <div class="card">
           <h3>Proof it's an architecture, not a one-off</h3>
-          <p>The same engine now runs two unrelated products — <a href="https://play.google.com/store/apps/details?id=com.lbc.sajumung" target="_blank" rel="noopener">Sajumung</a> (counseling) and <a href="https://play.google.com/store/apps/details?id=com.lbc.lunaday" target="_blank" rel="noopener">Lunaday</a> (women's health) — because it was abstracted rather than rebuilt. Both are solo: Flutter client, Node/Mongo server, Docker on EC2, shipped and operated by me.</p>
+          <p>The same engine runs two unrelated products because it was abstracted, not rebuilt:
+            <a href="https://play.google.com/store/apps/details?id=com.lbc.sajumung" target="_blank" rel="noopener">Sajumung</a> (counseling — real domain theory encoded into structured system prompts, every answer grounded in the user's own chart, not generic advice) and
+            <a href="https://play.google.com/store/apps/details?id=com.lbc.lunaday" target="_blank" rel="noopener">Lunaday</a> — <b>not a reskin</b>: it adds a cycle-prediction algorithm and a full anonymous community (posts, threaded comments, reporting, admin moderation) on top of the shared engine.</p>
           <span class="badge">2 domains · 1 engine</span>
         </div>
         <div class="card">
           <h3>MCP &amp; agent tooling</h3>
           <p>Two published MCP servers. The hard part isn't the protocol — it's designing tool descriptions and return shapes so a model reaches for the right tool unprompted. API design for a non-human reader.
-            <a href="https://www.npmjs.com/package/claude-session-continuity-mcp" target="_blank" rel="noopener">session-continuity-mcp</a> ·
+            <a href="https://www.npmjs.com/package/claude-session-continuity-mcp" target="_blank" rel="noopener">session-continuity-mcp</a> — listed in awesome-mcp-servers, ~1.8k downloads/month ·
             <a href="https://www.npmjs.com/package/mac-pilot-mcp" target="_blank" rel="noopener">mac-pilot-mcp</a></p>
           <span class="badge">mcp · awesome-mcp-servers</span>
-        </div>
-        <div class="card">
-          <h3>Domain depth, encoded</h3>
-          <p>The counseling engine doesn't just call an LLM — it encodes real domain theory into structured system prompts, and grounds every answer in the user's own chart rather than generic advice. Same discipline in the health app: cycle prediction, symptom history, and mood patterns feed the model as structured facts, not free text.</p>
-          <span class="badge">domain modeling</span>
         </div>
       </div>
     </section>
@@ -311,7 +324,8 @@
         <ul class="dash-list">
           <li>Designed a <b>Context-Engineering + structured-RAG counseling engine</b> — multi-source merging to cut tokens, a self-harm-signal classifier routing to a safe-response path, and a self-built LLM-as-Judge evaluation loop.</li>
           <li>Shipped <b>Sajumung</b> &amp; <b>Lunaday</b> on Google Play; reused one abstracted AI architecture as a web-service pipeline for 4 more services.</li>
-          <li>Authored <b>claude-session-continuity-mcp</b> (listed in awesome-mcp-servers) and <b>mac-pilot-mcp</b> on npm.</li>
+          <li>Authored <b>claude-session-continuity-mcp</b> (listed in awesome-mcp-servers, ~1.8k downloads/mo) and <b>mac-pilot-mcp</b> on npm.</li>
+          <li><b>Owned incident response for a CVSS 10.0 breach</b> (CVE-2025-66478) across my 9-container EC2 fleet — 16-task remediation, forensic preservation, everything rebuilt non-root; then fixed the process gap that let the patch regress.</li>
           <li><b>Amazon Nova AI Hackathon</b> — ResumeAI, a multi-stage LLM pipeline on AWS Bedrock (AWS Builder feature).</li>
         </ul>
         <div class="stack">Flutter · Kotlin · Swift · Next.js · Node.js · MCP · RAG · Docker · AWS</div>
@@ -324,7 +338,7 @@
         </div>
         <ul class="dash-list">
           <li>Android: stabilized infinite-scroll lists with <b>Paging 3</b>, fixed memory leaks on a live app.</li>
-          <li>iOS: replaced synchronous API waits with a <b>Combine-based async ordering flow</b> under a no-redesign constraint.</li>
+          <li>iOS: replaced synchronous API waits with a <b>Combine-based async ordering flow</b> under a no-redesign constraint — <b>cutting screen-entry latency</b>.</li>
           <li>Built core community screens (Riverpod) for a Flutter renewal; <b>migrated infra NCloud → AWS</b> (EC2/RDS).</li>
         </ul>
         <div class="stack">Kotlin · Compose · Swift · SwiftUI · Combine · Flutter · AWS</div>
@@ -332,12 +346,13 @@
 
       <div class="job">
         <div class="job-top">
-          <div class="co">Petnow <span class="tag">· pet-biometric SaaS</span></div>
+          <div class="co">Petnow <span class="tag">· dog nose-print biometric ID</span></div>
           <div class="when">2021.07 – 2022.10</div>
         </div>
         <ul class="dash-list">
+          <li>Shipped the biometric pet-ID app from <b>v1.0 through v3.3.1</b> — identity from a dog's nose print, the way a fingerprint identifies a person.</li>
           <li>Introduced <b>Dynamic Feature modules</b> for global rollout; designed multi-module architecture; integrated Amplitude.</li>
-          <li>iOS features in SwiftUI/Combine MVVM; introduced Firebase &amp; Swift Package Manager.</li>
+          <li>Built and maintained <b>production iOS features</b> in SwiftUI/Combine MVVM; introduced Firebase &amp; Swift Package Manager.</li>
         </ul>
         <div class="stack">Kotlin · Multi-Module · Dagger Hilt · Swift · SwiftUI · Combine</div>
       </div>
@@ -349,9 +364,22 @@
         </div>
         <ul class="dash-list">
           <li>Led the app team; designed <b>MQTT + Socket.io</b> real-time order intake for a POS system.</li>
+          <li>Mediated an <b>implementation conflict between the server team and iOS</b> over payment-Intent handling — resolved it with sample code and a written sequence spec rather than another meeting. That artifact became the team's <b>standard for communicating with outsourced partners</b>.</li>
           <li>Replaced numeric-index paging with <b>time-based paging</b> stable under dynamic insert/delete.</li>
         </ul>
         <div class="stack">Kotlin · MVVM · Dagger2 · Coroutine · Jetpack</div>
+      </div>
+
+      <div class="job">
+        <div class="job-top">
+          <div class="co">Woori Dongne Iyagi <span class="tag">· solo side product (now delisted)</span></div>
+          <div class="when">2022.11 – 2025.01</div>
+        </div>
+        <ul class="dash-list">
+          <li>A neighborhood community app I took from concept to store <b>entirely solo — before LLMs could write code for me</b>: board, threaded comments, 1:1 chat with read state, in-app purchases.</li>
+          <li>Kotlin/Compose client, Node backend on EC2/S3, CI via GitHub Actions.</li>
+        </ul>
+        <div class="stack">Kotlin · Compose · Node.js · AWS EC2/S3 · GitHub Actions</div>
       </div>
 
       <div class="job">
@@ -396,7 +424,7 @@
     </section>
 
     <div class="foot">
-      <b>Working style:</b> async-first — written specs, PRs, docs over live calls. 2–4 hr timezone overlap.<br>
+      <b>Working style:</b> async-first, and I have the receipts — at Tempus I unblocked a stalled server↔iOS dispute with sample code and a written sequence spec, and that document became the team's standard for working with outside partners. Written specs, PRs, docs. 2–4 hr timezone overlap.<br>
       <b>Available:</b> contract now · full-time from Aug 2026 · rate on request · <b>remote only</b>.
     </div>
   </main>
