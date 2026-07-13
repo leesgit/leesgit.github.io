@@ -179,7 +179,7 @@
     <div class="proof">
       <div class="label">Proof of work</div>
       <a href="https://github.com/leesgit" target="_blank" rel="noopener"><span class="dot"></span>github.com/leesgit</a>
-      <a href="https://www.npmjs.com/package/claude-session-continuity-mcp" target="_blank" rel="noopener"><span class="dot"></span>npm · session-continuity-mcp <span class="sub">awesome-mcp · 1.8k/mo</span></a>
+      <a href="https://www.npmjs.com/package/claude-session-continuity-mcp" target="_blank" rel="noopener"><span class="dot"></span>npm · session-continuity-mcp <span class="sub">awesome-mcp</span></a>
       <a href="https://www.npmjs.com/package/mac-pilot-mcp" target="_blank" rel="noopener"><span class="dot"></span>npm · mac-pilot-mcp</a>
       <a href="https://play.google.com/store/apps/details?id=com.lbc.sajumung" target="_blank" rel="noopener"><span class="dot"></span>Google Play · Sajumung</a>
       <a href="https://play.google.com/store/apps/details?id=com.lbc.lunaday" target="_blank" rel="noopener"><span class="dot"></span>Google Play · Lunaday</a>
@@ -194,20 +194,20 @@
     <div class="anchor-sub">7 yrs · Android-primary · production iOS · Flutter · RAG · MCP · ex-team-lead (Tempus)</div>
 
     <p class="thesis">
-      In the last six months I designed a <b>context-engineering + structured-RAG engine</b> and took it to production —
-      <span class="hl">2 apps on Google Play</span>, <span class="hl">2 npm MCP packages</span>
-      (one listed in awesome-mcp-servers), <span class="hl">4 live web services</span>, all solo.
-      Not prototypes: shipped, deployed, and operated — including <b>responding to a real CVSS 10.0 breach</b>
-      on my own production servers — with an <b>LLM-as-Judge quality gate</b> guarding every prompt change. Before that,
-      <b>6 years of native mobile</b>: Android-primary in Kotlin/Compose, with production iOS features shipped in Swift.
+      In the last six months I designed a <span class="hl">context-engineering + structured-RAG engine</span>, shipped it
+      in <b>two Google Play apps</b>, and abstracted it well enough that the second product reused it rather than rebuilt it.
+      It ships behind an <b>LLM-as-Judge quality gate</b> — prompt changes get measured, not eyeballed. I also
+      <b>author two MCP servers</b> on npm, one curated into <i>awesome-mcp-servers</i>.
+      Everything here is solo: design, build, deploy, and keep it alive — including
+      <b>responding to a CVSS 10.0 breach</b> on my own production servers. Before that,
+      <b>6 years of native mobile</b> — Android-primary in Kotlin/Compose, with production iOS features shipped in Swift.
     </p>
 
     <div class="stat-row">
-      <div class="stat"><div class="n">7</div><div class="t">years engineering</div></div>
-      <div class="stat"><div class="n">2</div><div class="t">apps on Google Play</div></div>
-      <div class="stat"><div class="n">2</div><div class="t">npm MCP packages</div></div>
-      <div class="stat"><div class="n">4</div><div class="t">live web services</div></div>
-      <div class="stat"><div class="n">10.0</div><div class="t">CVSS breach handled solo</div></div>
+      <div class="stat"><div class="n">7 yrs</div><div class="t">native mobile, Android-primary</div></div>
+      <div class="stat"><div class="n">9,654</div><div class="t">records served by one of my web apps</div></div>
+      <div class="stat"><div class="n">CVSS 10.0</div><div class="t">breach on my own servers, handled solo</div></div>
+      <div class="stat"><div class="n">Solo</div><div class="t">design → deploy → operate, every project here</div></div>
     </div>
 
     <section>
@@ -305,7 +305,7 @@
         <div class="card">
           <h3>MCP &amp; agent tooling</h3>
           <p>Two published MCP servers. The hard part isn't the protocol — it's designing tool descriptions and return shapes so a model reaches for the right tool unprompted. API design for a non-human reader.
-            <a href="https://www.npmjs.com/package/claude-session-continuity-mcp" target="_blank" rel="noopener">session-continuity-mcp</a> — listed in awesome-mcp-servers, ~1.8k downloads/month ·
+            <a href="https://www.npmjs.com/package/claude-session-continuity-mcp" target="_blank" rel="noopener">session-continuity-mcp</a> — curated into awesome-mcp-servers ·
             <a href="https://www.npmjs.com/package/mac-pilot-mcp" target="_blank" rel="noopener">mac-pilot-mcp</a></p>
           <span class="badge">mcp · awesome-mcp-servers</span>
         </div>
@@ -324,7 +324,7 @@
         <ul class="dash-list">
           <li>Designed a <b>Context-Engineering + structured-RAG counseling engine</b> — multi-source merging to cut tokens, a self-harm-signal classifier routing to a safe-response path, and a self-built LLM-as-Judge evaluation loop.</li>
           <li>Shipped <b>Sajumung</b> &amp; <b>Lunaday</b> on Google Play; reused one abstracted AI architecture as a web-service pipeline for 4 more services.</li>
-          <li>Authored <b>claude-session-continuity-mcp</b> (listed in awesome-mcp-servers, ~1.8k downloads/mo) and <b>mac-pilot-mcp</b> on npm.</li>
+          <li>Authored <b>claude-session-continuity-mcp</b> (curated into awesome-mcp-servers) and <b>mac-pilot-mcp</b> on npm.</li>
           <li><b>Owned incident response for a CVSS 10.0 breach</b> (CVE-2025-66478) across my 9-container EC2 fleet — 16-task remediation, forensic preservation, everything rebuilt non-root; then fixed the process gap that let the patch regress.</li>
           <li><b>Amazon Nova AI Hackathon</b> — ResumeAI, a multi-stage LLM pipeline on AWS Bedrock (AWS Builder feature).</li>
         </ul>
