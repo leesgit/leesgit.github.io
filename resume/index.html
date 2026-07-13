@@ -131,6 +131,14 @@
   .card { border: 1px solid var(--line); padding: 15px 17px; background: var(--surface); }
   .card h3 { margin: 0 0 4px; font-size: 15px; }
   .card p { margin: 0; font-size: 13.5px; color: var(--ink-soft); }
+  .card p b, .card li b { color: var(--ink); font-weight: 600; }
+  .card i { color: var(--accent); font-style: italic; }
+  .card .dash-list li { font-size: 12.8px; padding-left: 15px; }
+  code {
+    font-family: var(--mono); font-size: 0.88em;
+    background: var(--surface-2); border: 1px solid var(--line);
+    padding: 0.5px 4px; border-radius: 3px; color: var(--ink);
+  }
   .card .badge { display: inline-block; font-family: var(--mono); font-size: 10.5px; text-transform: lowercase; letter-spacing: 0.04em; color: var(--accent); border: 1px solid var(--accent); padding: 1px 6px; margin-top: 9px; }
 
   .skills { display: flex; flex-direction: column; gap: 12px; }
@@ -185,9 +193,11 @@
     <div class="anchor-sub">7 yrs · ex-team-lead (Tempus) · Kotlin · Swift · Flutter · RAG · MCP</div>
 
     <p class="thesis">
-      Over the past year I built a <b>Context-Engineering + RAG counseling engine</b> and took it to
-      production — <span class="hl">2 apps on Google Play</span>, <span class="hl">2 npm MCP packages</span>
-      (one listed in awesome-mcp-servers), and <span class="hl">4 web services</span>, all solo. Before that,
+      Over the past year I designed a <b>context-engineering + structured-RAG engine</b> and took it to production —
+      <span class="hl">2 apps on Google Play</span>, <span class="hl">2 npm MCP packages</span>
+      (one listed in awesome-mcp-servers), <span class="hl">4 web services</span>, and an
+      <span class="hl">automated video pipeline</span>, all solo. Not prototypes: shipped, deployed, and operated,
+      with an <b>LLM-as-Judge quality gate</b> guarding every prompt change. Before that,
       <b>6 years of native mobile</b> in Kotlin and Swift.
     </p>
 
@@ -239,24 +249,40 @@
       </p>
       <div class="grid2">
         <div class="card">
-          <h3>Structured RAG, not naive RAG</h3>
-          <p>Retrieval over a domain corpus where naive top-k chunking loses meaning. I merge multiple sources into one structured context block before the call — which cuts token spend and, more importantly, stops the model from contradicting itself across retrieved fragments. Retrieval is scoped by the question type, not one index for everything.</p>
-          <span class="badge">retrieval · context assembly</span>
+          <h3>I chose <i>not</i> to use a vector DB — and that was the right call</h3>
+          <p>The default reflex is "RAG = embeddings + vector store." My domain data had a well-defined schema, so key-based lookup in MongoDB was <b>more accurate, faster, and cheaper</b> than embedding search — semantic similarity would have retrieved plausible-but-wrong records. So it's <b>DB-backed structured RAG</b>: multiple context sources (user profile, life context, emotional trend, prior sessions, cross-references) composed into one prompt per request, not top-k chunks glued together.</p>
+          <span class="badge">mongodb · structured rag</span>
         </div>
         <div class="card">
-          <h3>Context engineering</h3>
-          <p>Treating the context window as a budget to allocate, not a bucket to fill: what gets included, in what order, at what fidelity, and what gets summarized or dropped when the window tightens. This is where most of the quality lives — more than prompt wording.</p>
-          <span class="badge">token budget · ordering</span>
+          <h3>Context window as a budget</h3>
+          <p>Six consultation types, each pulling only the context that type actually needs — cutting API cost without cutting quality. Response params are <b>adapted per question</b>: complexity is classified (simple / moderate / deep) and <code>max_tokens</code> (350–800) and <code>temperature</code> (0.7–0.85) are set accordingly, instead of one fixed config for every call.</p>
+          <span class="badge">token budget · dynamic params</span>
         </div>
         <div class="card">
-          <h3>Evaluation (LLM-as-Judge)</h3>
-          <p>Shipping an LLM feature without evals is guessing. I built a judge-based harness that scores generations against a rubric so a prompt or model change can be measured rather than eyeballed — and regressions get caught before users see them.</p>
-          <span class="badge">rubric · regression gate</span>
+          <h3>Evaluation with actual statistics</h3>
+          <p>I built a 6-dimension LLM-as-Judge harness as a <b>quality gate</b> on prompt and model changes:</p>
+          <ul class="dash-list" style="margin-top:8px">
+            <li><b>Self-bias avoided</b> — GPT-4o judges, GPT-4o-mini generates (never the same model grading itself)</li>
+            <li><b>Judge reliability measured</b> — Cohen's quadratic weighted kappa, so I know the judge is trustworthy</li>
+            <li><b>Regressions caught statistically</b> — Welch's t-test with Bonferroni correction, not eyeballing a few samples</li>
+            <li>CoT + score calibration + few-shot; judge prompts versioned and hashed</li>
+          </ul>
+          <span class="badge">llm-as-judge · qwk · t-test</span>
         </div>
         <div class="card">
-          <h3>Safety in a consumer product</h3>
-          <p>A counseling-style app takes real emotional input, so the pipeline detects crisis signals and routes them away from generative answers. Guardrails were part of the architecture, not a filter bolted on at the end.</p>
-          <span class="badge">crisis detection · routing</span>
+          <h3>Safety designed in, not bolted on</h3>
+          <p>A counseling app receives real distress. Crisis detection runs in real time and grades into <b>two levels</b> — watch vs. urgent — with urgent cases routed out of the generative path and into real crisis hotlines. On the analytics side, a <b>5-stage filter</b> means only positive, anonymized sessions ever feed service-level learning; negative or personal data is structurally blocked from touching another user.</p>
+          <span class="badge">2-tier crisis routing · privacy</span>
+        </div>
+        <div class="card">
+          <h3>A system that learns from each session</h3>
+          <p>Facts are extracted from conversation and written back to the user's context immediately. Life changes are stored as <b>history rather than overwrites</b>, so "what recently changed" is answerable. Emotion scores are tracked over time to classify a trend as improving / stable / declining, and what a user revealed in one consultation type is available to the others.</p>
+          <span class="badge">stateful · cross-reference</span>
+        </div>
+        <div class="card">
+          <h3>Proof it's an architecture, not a one-off</h3>
+          <p>The same engine now runs two unrelated products — <a href="https://play.google.com/store/apps/details?id=com.lbc.sajumung" target="_blank" rel="noopener">Sajumung</a> (counseling) and <a href="https://play.google.com/store/apps/details?id=com.lbc.lunaday" target="_blank" rel="noopener">Lunaday</a> (women's health) — because it was abstracted rather than rebuilt. Both are solo: Flutter client, Node/Mongo server, Docker on EC2, shipped and operated by me.</p>
+          <span class="badge">2 domains · 1 engine</span>
         </div>
         <div class="card">
           <h3>MCP &amp; agent tooling</h3>
@@ -266,9 +292,9 @@
           <span class="badge">mcp · awesome-mcp-servers</span>
         </div>
         <div class="card">
-          <h3>Reuse across domains</h3>
-          <p>The same engine now powers two very different products — <a href="https://play.google.com/store/apps/details?id=com.lbc.sajumung" target="_blank" rel="noopener">Sajumung</a> and <a href="https://play.google.com/store/apps/details?id=com.lbc.lunaday" target="_blank" rel="noopener">Lunaday</a> — because the architecture was abstracted rather than rebuilt. Same reason the video pipeline runs unattended.</p>
-          <span class="badge">2 domains · 1 engine</span>
+          <h3>Domain depth, encoded</h3>
+          <p>The counseling engine doesn't just call an LLM — it encodes real domain theory into structured system prompts, and grounds every answer in the user's own chart rather than generic advice. Same discipline in the health app: cycle prediction, symptom history, and mood patterns feed the model as structured facts, not free text.</p>
+          <span class="badge">domain modeling</span>
         </div>
       </div>
     </section>
